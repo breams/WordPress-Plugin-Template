@@ -15,15 +15,15 @@ You can simply copy the files out of this repo and rename everything as you need
 
 You can run the script just like you would run any shell script - it does not take any arguments, so you don't need to worry about that. Once you start the script it will ask a number of questions:
 
-1. **Plugin name** - this must be the full name of your plugin, with correct capitalisation and spacing.
-2. **Destination folder** - this will be the folder where your new plugin will be created - typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
-3. **Plugin URL** - this is the reference URL for the plugin. Please include a full and correct URL as it is not validated.
-4. **Author name** - name of the plugin author(s). For multiple authors, please use a comma separated list.
-5. **Author URL** - this is the contact/reference URL for the plugin author(s). Please include a full and correct URL as it is not validated.
+1. **Plugin name (required)** - this must be the full name of your plugin, with correct capitalisation and spacing.
+2. **Destination folder (required)** - this will be the folder where your new plugin will be created - typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
+4. **Author name (required)** - name of the plugin author(s). For multiple authors, please use a comma separated list.
+3. **Plugin URL (optional)** - this is the reference URL for the plugin. Please include a full and correct URL as it is not validated. You can optionally skip this question to remove this field.
+5. **Author URL (optional)** - this is the contact/reference URL for the plugin author(s). Please include a full and correct URL as it is not validated. You can optionally skip this question to remove this field.
 6. **Contributors (optional - defaults to author name)** - this is the wordpress.org usernames of plugin developers/contributors - comma separated. You can optionally skip this question to use the value from `Author name`.
 7. **Text Domain (optional - defaults to slug)** - this is the string used for language translation in the plugin. You can optionally skip this question to use the plugin's slug.
-8. **Include Grunt support (y/n)** - if you enter 'y' here then the Grunt files will be included in the new plugin folder.
-9. **Initialise new git repo (y/n)** - if you enter 'y' here then a git repo will be initialised in the new plugin folder.
+8. **Include Grunt support (Y/n)** - enter 'y' to include the Grunt files in the new plugin folder or 'n' to exclude them. Defaults to 'y'.
+9. **Initialise new git repo (y/N)** - enter 'y' to initialise a new git repository in the new plugin folder or 'n' to skip. Defaults to 'n'.
 
 ### API functions
 
