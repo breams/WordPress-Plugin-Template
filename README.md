@@ -3,23 +3,27 @@ WordPress Plugin Template
 
 A robust and GPL-licensed code template for creating a standards-compliant WordPress plugin.
 
-
 ## Why this template?
 
 After writing many WordPress plugins I slowly developed my own coding style and way of doing things - this template is the culmination of what I've learnt along the way. I use this template as a base for any plugin that I start building and I thought it might benefit more people if I shared it around.
 
 ## How do I use it?
 
-You can simply copy the files out of this repo and rename everything as you need it, but to make things easier I have included a [shell script](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/build-plugin.sh) in this repo that will automatically copy the files to a new folder, remove all traces of the existing git repo, rename everything in the files according to your new plugin name, and initialise a new git repo in the folder if you choose to do so.
+You can simply copy the files out of this repo and rename everything as you need it, but to make things easier I have included a [shell script](build-plugin.sh) in this repo that will automatically copy the files to a new folder, remove all traces of the existing git repo, rename everything in the files according to your new plugin name, and initialise a new git repo in the folder if you choose to do so.
 
 ### Running the script
 
-You can run the script just like you would run any shell script - it does not take any arguments, so you don't need to worry about that. Once you start the script it will ask for three things:
+You can run the script just like you would run any shell script - it does not take any arguments, so you don't need to worry about that. Once you start the script it will ask a number of questions:
 
 1. **Plugin name** - this must be the full name of your plugin, with correct capitalisation and spacing.
 2. **Destination folder** - this will be the folder where your new plugin will be created - typically this will be your `wp-content/plugins` folder. You can provide a path that is relative to the script, or an absolute path - either will work.
-3. **Include Grunt support (y/n)** - if you enter 'y' here then the Grunt files will be included in the new plugin folder.
-4. **Initialise new git repo (y/n)** - if you enter 'y' here then a git repo will be initialised in the new plugin folder.
+3. **Plugin URL** - this is the reference URL for the plugin. Please include a full and correct URL as it is not validated.
+4. **Author name** - name of the plugin author(s). For multiple authors, please use a comma separated list.
+5. **Author URL** - this is the contact/reference URL for the plugin author(s). Please include a full and correct URL as it is not validated.
+6. **Contributors (optional - defaults to author name)** - this is the wordpress.org usernames of plugin developers/contributors - comma separated. You can optionally skip this question to use the value from `Author name`.
+7. **Text Domain (optional - defaults to slug)** - this is the string used for language translation in the plugin. You can optionally skip this question to use the plugin's slug.
+8. **Include Grunt support (y/n)** - if you enter 'y' here then the Grunt files will be included in the new plugin folder.
+9. **Initialise new git repo (y/n)** - if you enter 'y' here then a git repo will be initialised in the new plugin folder.
 
 ### API functions
 
@@ -27,7 +31,7 @@ As of v3.0 of this template, there are a few libraries built into it that will m
 
 #### Registering a new post type
 
-Using the [post type API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/lib/class-wordpress-plugin-template-post-type.php) and the wrapper function from the main plugin class you can easily register new post types with one line of code. For exapmle if you wanted to register a `listing` post type then you could do it like this:
+Using the [post type API](includes/lib/class-wordpress-plugin-template-post-type.php) and the wrapper function from the main plugin class you can easily register new post types with one line of code. For exapmle if you wanted to register a `listing` post type then you could do it like this:
 
 `WordPress_Plugin_Template()->register_post_type( 'listing', __( 'Listings', 'wordpress-plugin-template' ), __( 'Listing', 'wordpress-plugin-template' ) );`
 
@@ -37,7 +41,7 @@ This will register a new post type with all the standard settings. If you would 
 
 #### Registering a new taxonomy
 
-Using the [taxonomy API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/lib/class-wordpress-plugin-template-taxonomy.php) and the wrapper function from the main plugin class you can easily register new taxonomies with one line of code. For example if you wanted to register a `location` taxonomy that applies to the `listing` post type then you could do it like this:
+Using the [taxonomy API](includes/lib/class-wordpress-plugin-template-taxonomy.php) and the wrapper function from the main plugin class you can easily register new taxonomies with one line of code. For example if you wanted to register a `location` taxonomy that applies to the `listing` post type then you could do it like this:
 
 `WordPress_Plugin_Template()->register_taxonomy( 'location', __( 'Locations', 'wordpress-plugin-template' ), __( 'Location', 'wordpress-plugin-template' ), 'listing' );`
 
@@ -47,7 +51,7 @@ This will register a new taxonomy with all the standard settings. If you would l
 
 #### Calling your Options
 
-Using the [Settings API](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/includes/class-wordpress-plugin-template-settings.php) and the wrapper function from the main plugin class you can easily store options from the WP admin like text boxes, radio options, dropdown, etc. You can call the values by using `id` that you have set under the `settings_fields` function. For example you have the `id` - `text_field`, you can call its value by using `get_option('wpt_text_field')`. Take note that by default, this plugin is using a prefix of `wpt_` before the id that you will be calling, you can override that value by changing it under the `__construct` function `$this->base` variable;
+Using the [Settings API](includes/class-wordpress-plugin-template-settings.php) and the wrapper function from the main plugin class you can easily store options from the WP admin like text boxes, radio options, dropdown, etc. You can call the values by using `id` that you have set under the `settings_fields` function. For example you have the `id` - `text_field`, you can call its value by using `get_option('wpt_text_field')`. Take note that by default, this plugin is using a prefix of `wpt_` before the id that you will be calling, you can override that value by changing it under the `__construct` function `$this->base` variable;
 
 ## What does this template give me?
 
@@ -66,11 +70,11 @@ This template includes the following features:
 + A .pot file to make localisation easier
 + Full text of the GPLv2 license
 
-See the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt) for a complete list of changes as the template develops.
+See the [changelog](changelog.txt) for a complete list of changes as the template develops.
 
 ## I've got an idea/fix for the template
 
-If you would like to contribute to this template then please fork it and send a pull request. I'll merge the request if it fits into the goals for the template and credit you in the [changelog](https://github.com/hlashbrooke/WordPress-Plugin-Template/blob/master/changelog.txt).
+If you would like to contribute to this template then please fork it and send a pull request. I'll merge the request if it fits into the goals for the template and credit you in the [changelog](changelog.txt).
 
 ## This template is amazing! How can I ever repay you?
 

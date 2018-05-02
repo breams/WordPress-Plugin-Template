@@ -2,7 +2,8 @@
 	"name": "wordpress-plugin-template",
 	"title": "WordPress Plugin Template",
 	"version": "1.0.0",
-	"homepage": "https://github.com/hlashbrooke/WordPress-Plugin-Template",
+	"homepage": "__PLUGIN_URL__",
+	"author": "__AUTHOR_NAME__",
 	"main": "Gruntfile.js",
 	"devDependencies": {
 		"grunt": "~0.4.5",

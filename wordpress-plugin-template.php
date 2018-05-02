@@ -1,20 +1,20 @@
 <?php
 /*
- * Plugin Name: WordPress Plugin Template
- * Version: 1.0
- * Plugin URI: http://www.hughlashbrooke.com/
- * Description: This is your starter template for your next WordPress plugin.
- * Author: Hugh Lashbrooke
- * Author URI: http://www.hughlashbrooke.com/
- * Requires at least: 4.0
- * Tested up to: 4.0
+ * Plugin Name:       __PLUGIN_NAME__
+ * Version:           1.0.0
+ * Plugin URI:        __PLUGIN_URL__
+ * Description:       This is your starter template for your next WordPress plugin.
+ * Author:            __AUTHOR_NAME__
+ * Author URI:        __AUTHOR_URL__
+ * Requires at least: 4.4
+ * Tested up to:      4.9
  *
- * Text Domain: wordpress-plugin-template
- * Domain Path: /lang/
+ * Text Domain:       __TEXT_DOMAIN__
+ * Domain Path:       lang/
  *
  * @package WordPress
- * @author Hugh Lashbrooke
- * @since 1.0.0
+ * @author  __AUTHOR_NAME__
+ * @since   1.0.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;

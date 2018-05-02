@@ -6,6 +6,21 @@ read NAME
 printf "Destination folder: "
 read FOLDER
 
+printf "Plugin URL: "
+read PLUGIN_URL
+
+printf "Author name: "
+read AUTHOR_NAME
+
+printf "Author URL: "
+read AUTHOR_URL
+
+printf "Contributors (optional - defaults to author name): "
+read CONTRIBUTORS
+
+printf "Text Domain (optional - defaults to slug): "
+read TEXT_DOMAIN
+
 printf "Include Grunt support (y/n): "
 read GRUNT
 
@@ -20,6 +35,15 @@ DEFAULT_SLUG=${DEFAULT_TOKEN//_/-}
 CLASS=${NAME// /_}
 TOKEN=$( tr '[A-Z]' '[a-z]' <<< $CLASS)
 SLUG=${TOKEN//_/-}
+TODAYS_DATE=$(date +%Y-%m-%d)
+
+if [[ -z "${TEXT_DOMAIN// }" ]]; then
+	TEXT_DOMAIN=$SLUG
+fi
+
+if [[ -z "${CONTRIBUTORS// }" ]]; then
+	CONTRIBUTORS=$AUTHOR_NAME
+fi
 
 git clone https://github.com/hlashbrooke/$DEFAULT_SLUG.git $FOLDER/$SLUG
 
@@ -58,10 +82,59 @@ cp $SLUG.php $SLUG.tmp
 sed "s/$DEFAULT_CLASS/$CLASS/g" $SLUG.tmp > $SLUG.php
 rm $SLUG.tmp
 
+cp $SLUG.php $SLUG.tmp
+sed "s/__PLUGIN_URL__/$(echo $PLUGIN_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" $SLUG.tmp > $SLUG.php
+rm $SLUG.tmp
+
+cp $SLUG.php $SLUG.tmp
+sed "s/__PLUGIN_NAME__/$(echo $NAME | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" $SLUG.tmp > $SLUG.php
+rm $SLUG.tmp
+
+cp $SLUG.php $SLUG.tmp
+sed "s/__AUTHOR_NAME__/$(echo $AUTHOR_NAME | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" $SLUG.tmp > $SLUG.php
+rm $SLUG.tmp
+
+cp $SLUG.php $SLUG.tmp
+sed "s/__AUTHOR_URL__/$(echo $AUTHOR_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" $SLUG.tmp > $SLUG.php
+rm $SLUG.tmp
+
+cp $SLUG.php $SLUG.tmp
+sed "s/__TEXT_DOMAIN__/$(echo $TEXT_DOMAIN | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" $SLUG.tmp > $SLUG.php
+rm $SLUG.tmp
+
 cp readme.txt readme.tmp
 sed "s/$DEFAULT_NAME/$NAME/g" readme.tmp > readme.txt
 rm readme.tmp
 
+cp readme.txt readme.tmp
+sed "s/__CONTRIBUTORS__/$(echo $CONTRIBUTORS | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" readme.tmp > readme.txt
+rm readme.tmp
+
+cp readme.txt readme.tmp
+sed "s/__AUTHOR_URL__/$(echo $AUTHOR_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" readme.tmp > readme.txt
+rm readme.tmp
+
+cp readme.txt readme.tmp
+sed "s/__TODAYS_DATE__/$TODAYS_DATE/g" readme.tmp > readme.txt
+rm readme.tmp
+
+if [ "$GRUNT" != "n" ]; then
+	cp package.json package.tmp
+	sed "s/__PLUGIN_URL__/$(echo $PLUGIN_URL | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" package.tmp > package.json
+	rm package.tmp
+
+	cp package.json package.tmp
+	sed "s/__AUTHOR_NAME__/$(echo $AUTHOR_NAME | sed -e 's/\\/\\\\/g; s/\//\\\//g; s/&/\\\&/g')/g" package.tmp > package.json
+	rm package.tmp
+
+	cp package.json package.tmp
+	sed "s/$DEFAULT_NAME/$NAME/g" package.tmp > package.json
+	rm package.tmp
+
+	cp package.json package.tmp
+	sed "s/$DEFAULT_SLUG/$SLUG/g" package.tmp > package.json
+	rm package.tmp
+fi
 
 cd lang
 mv $DEFAULT_SLUG.pot $SLUG.pot
