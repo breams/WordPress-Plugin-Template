@@ -197,6 +197,12 @@ class WordPress_Plugin_Template_Admin_API {
 			    </div>
 			    <?php
 			break;
+			
+			case 'editor':
+				wp_editor($data, $option_name, array(
+					'textarea_name' => $option_name
+				) );
+			break;
 
 		} // End switch().
 
